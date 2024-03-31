@@ -9,7 +9,12 @@ export default MealsOverviewScreen = ({ route }) => {
 
     const renderMealItem = (itemData) => {
         return (
-            <MealItem title={itemData.item.title} />
+            <MealItem 
+            title={itemData.item.title} 
+            image={itemData.item.imageUrl} 
+            ingredients={itemData.item.ingredients}
+            steps={itemData.item.steps}/>
+            //TODO: try to implement ingredients and steps as a section list
         );
     };
 

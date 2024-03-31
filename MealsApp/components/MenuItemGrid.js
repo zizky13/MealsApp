@@ -1,13 +1,15 @@
 import { View, Text, Pressable, StyleSheet, Platform } from 'react-native';
 
-export default MenuItemGrid = ({title, color}) => {
+export default MenuItemGrid = ({title, color, onPress}) => {
     return (
         <View style={[styles.gridItem, {backgroundColor: color}]}>
             <Pressable 
             android_ripple={{color: '#CCC'}} 
-            style={({pressed}) => [styles.button, pressed ? styles.buttonPressed : null]}>
+            style={({pressed}) => [styles.button, pressed ? styles.buttonPressed : null]}
+            onPress={onPress}
+            >
                 <View style={styles.innerContainer}>
-                    <Text>{title}</Text>
+                    <Text style={styles.title}>{title}</Text>
                 </View>
             </Pressable>
         </View>
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
       },
       title: {
-        fontWeight: 'bold',
-        fontSize: 18,
+        fontFamily: 'poppins-semi-bold',
+        fontSize: 16
       },
 });

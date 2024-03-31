@@ -2,10 +2,16 @@ import { FlatList, View, Text } from "react-native";
 import { CATEGORIES } from "../data/dummy-data";
 import MenuItemGrid from "../components/MenuItemGrid";
 
-export default CategoryScreen = () => {
+export default CategoriesScreen = ({navigation}) => {
     const renderGridItem = (itemData) => {
+        const pressHandler = () => {
+            navigation.navigate('MealsOverview', {
+                categoryId: itemData.item.id
+            });
+        }
+
         return (
-            <MenuItemGrid title={itemData.item.title} color={itemData.item.color} />
+            <MenuItemGrid title={itemData.item.title} color={itemData.item.color} onPress={pressHandler}/>
         );
     };
 

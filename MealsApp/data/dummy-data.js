@@ -306,7 +306,7 @@ export const MEALS = [
     false
   ),
   new Meal(
-    'm10',
+    'm11',
     ['c2', 'c5', 'c10'],
     'Asparagus Salad with Cherry Tomatoes',
     'luxurious',
@@ -333,5 +333,5 @@ export const MEALS = [
     true,
     true,
     true
-  )
+  ),
 ];

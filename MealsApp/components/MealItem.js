@@ -1,4 +1,12 @@
-import { View, Text, Image, StyleSheet, Pressable, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Pressable,
+  Platform,
+} from "react-native";
+import MealDetails from "./MealDetails";
 
 /**
  * Renders a meal item component.
@@ -11,23 +19,34 @@ import { View, Text, Image, StyleSheet, Pressable, Platform } from 'react-native
  * @param {string} props.affordability - The affordability level of the meal.
  * @returns {JSX.Element} The rendered meal item component.
  */
-export default MealItem = ({ title, imageUrl, duration, complexity, affordability }) => {
-    return (
-        <Pressable style={styles.mealItemContainer} android_ripple={{color: '#CCC'}}>
-            <View style={styles.innerContainer}>
-                <View>
-                    <Image source={{uri: imageUrl}} style={styles.image}/>
-                    <Text style={styles.title}>{title}</Text>
-                </View>
-                <View style={styles.details}>
-                    <Text style={styles.detailItem}>{duration}m</Text>
-                    <Text style={styles.detailItem}>{complexity.toUpperCase()}</Text>
-                    <Text style={styles.detailItem}>{affordability.toUpperCase()}</Text>
-                </View>
-            </View>
-        </Pressable>
-    );
-}
+export default MealItem = ({
+  title,
+  imageUrl,
+  duration,
+  complexity,
+  affordability,
+  onSelectMeal,
+}) => {
+  return (
+    <Pressable
+      style={styles.mealItemContainer}
+      android_ripple={{ color: "#CCC" }}
+      onPress={onSelectMeal}
+    >
+      <View style={styles.innerContainer}>
+        <View>
+          <Image source={{ uri: imageUrl }} style={styles.image} />
+          <Text style={styles.title}>{title}</Text>
+        </View>
+        <MealDetails
+          duration={duration}
+          complexity={complexity}
+          affordability={affordability}
+        />
+      </View>
+    </Pressable>
+  );
+};
 
 /**
  * Styles for the MealItem component.
@@ -69,54 +88,38 @@ export default MealItem = ({ title, imageUrl, duration, complexity, affordabilit
  * @property {string} pressableContainer.justifyContent - The justification of the pressable container.
  */
 const styles = StyleSheet.create({
-   image: {
-       width: '100%',
-       height: 350,
-       borderTopLeftRadius: 12,
-       borderTopRightRadius: 12,
-   }, 
+  image: {
+    width: "100%",
+    height: 350,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+  },
 
-   title: {
-         fontFamily: 'poppins-semi-bold',
-         fontSize: 16,
-         textAlign: 'center',
-         margin: 12,
-   },
+  title: {
+    fontFamily: "poppins-semi-bold",
+    fontSize: 16,
+    textAlign: "center",
+    margin: 12,
+  },
 
-   mealItemContainer: {
-        margin: 12,
-        borderRadius: 12,
-        overflow: 'hidden',
-        backgroundColor: 'white',
-        elevation: 8,
-        shadowColor: 'black',
-        overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
-   },
+  mealItemContainer: {
+    margin: 12,
+    borderRadius: 12,
+    overflow: "hidden",
+    backgroundColor: "white",
+    elevation: 8,
+    shadowColor: "black",
+    overflow: Platform.OS === "android" ? "hidden" : "visible",
+  },
 
-    innerContainer: {
-        borderRadius: 12,
-        backgroundColor: 'transparent',
-        overflow: 'hidden',
-    },
+  innerContainer: {
+    borderRadius: 12,
+    backgroundColor: "transparent",
+    overflow: "hidden",
+  },
 
-   details: {
-       flexDirection: 'row',
-       padding: 8,
-   },
-
-   detailItem:{
-         fontFamily: 'poppins-bold',
-         flex: 1,
-         borderWidth: 1,
-         padding: 8,
-         margin: 4,
-         borderRadius: 8,
-   },
-
-    pressableContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-
+  pressableContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

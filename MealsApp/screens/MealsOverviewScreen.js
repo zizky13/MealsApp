@@ -1,13 +1,27 @@
 import MealItem from "../components/MealItem";
-import { MEALS } from "../data/dummy-data";
+import { MEALS, CATEGORIES } from "../data/dummy-data";
 import { View, Text, StyleSheet, FlatList } from "react-native";
+import { useLayoutEffect } from "react";
 
-export default MealsOverviewScreen = ({ route }) => {
+export default MealsOverviewScreen = ({ route, navigation }) => {
   const catId = route.params.categoryId;
 
   const displayedMeals = MEALS.filter(
-    (meal) => meal.categoryIds.indexOf(catId) >= 0
+    //create a new array of meals that have the category id
+    (meal) => meal.categoryIds.indexOf(catId) >= 0 //if the category id is in the array of category ids
   );
+
+  useLayoutEffect(() => {
+    //set the title of the screen to the category title
+    const selectedCategory = CATEGORIES.find(
+      //find the category with the id
+      (category) => category.id === catId //if the category id is the same as the id
+    );
+
+    navigation.setOptions({
+      title: selectedCategory.title,
+    });
+  }, [catId, navigation]);
 
   const renderMealItem = (itemData) => {
     const mealItemProps = {
@@ -16,11 +30,14 @@ export default MealsOverviewScreen = ({ route }) => {
       duration: itemData.item.duration,
       complexity: itemData.item.complexity,
       affordability: itemData.item.affordability,
+      onSelectMeal: () => {
+        navigation.navigate("MealsDetail", {
+          mealId: itemData.item.id,
+        });
+      },
     };
 
-    return (
-      <MealItem {...mealItemProps} />
-    );
+    return <MealItem {...mealItemProps} />;
   };
 
   return (

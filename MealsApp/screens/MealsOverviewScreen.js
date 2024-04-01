@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 
 export default MealsOverviewScreen = ({ route }) => {
     const catId = route.params.categoryId;
+    const themeColor = route.params.itemColor;
 
     const displayedMeals = MEALS.filter(meal => meal.categoryIds.indexOf(catId) >= 0);
 
@@ -13,7 +14,12 @@ export default MealsOverviewScreen = ({ route }) => {
             title={itemData.item.title} 
             image={itemData.item.imageUrl} 
             ingredients={itemData.item.ingredients}
-            steps={itemData.item.steps}/>
+            steps={itemData.item.steps}
+            duration={itemData.item.duration}
+            complexity={itemData.item.complexity}
+            affordability={itemData.item.affordability}
+            themeColor={themeColor}
+            />
             //TODO: try to implement ingredients and steps as a section list
         );
     };

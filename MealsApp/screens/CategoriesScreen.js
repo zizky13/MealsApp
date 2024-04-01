@@ -6,7 +6,8 @@ export default CategoriesScreen = ({navigation}) => {
     const renderGridItem = (itemData) => {
         const pressHandler = () => {
             navigation.navigate('MealsOverview', {
-                categoryId: itemData.item.id
+                categoryId: itemData.item.id,
+                itemColor: itemData.item.color,
             });
         }
 

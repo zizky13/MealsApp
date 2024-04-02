@@ -6,7 +6,7 @@ import {
   Pressable,
   Platform,
 } from "react-native";
-import MealDetails from "./MealDetails";
+import MealDetails from "../MealDetails";
 
 /**
  * Renders a meal item component.

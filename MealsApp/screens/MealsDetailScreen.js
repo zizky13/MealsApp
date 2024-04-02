@@ -1,11 +1,5 @@
 import { useContext, useLayoutEffect } from "react";
-import {
-  ScrollView,
-  View,
-  Text,
-  Image,
-  StyleSheet,
-} from "react-native";
+import { ScrollView, View, Text, Image, StyleSheet } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import Meal from "../models/meal";
 import MealDetails from "../components/MealDetails";
@@ -22,15 +16,15 @@ import { FavoritesContext } from "../store/context/favorites-context";
  * @returns {JSX.Element} - The JSX element representing the detail screen.
  */
 export default MealsDetailScreen = ({ route, navigation }) => {
-  const favoriteMealsContext = useContext(FavoritesContext);
+  const favoriteMealsContext = useContext(FavoritesContext); //get the favorite meals context
   const mealId = route.params.mealId; //get the meal id from the route
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId); //find the meal with the id
 
-  const mealIsFavorite = favoriteMealsContext.ids.includes(mealId); //check if the meal is a favorite
+  const mealIsFavorite = favoriteMealsContext.ids.includes(mealId); //check if current meal id is part of the favorites in the context array (this return boolean)
 
   const changeFavoriteStatusHandler = () => {
-    if (mealIsFavorite){
+    if (mealIsFavorite) {
       favoriteMealsContext.removeFavorite(mealId);
     } else {
       favoriteMealsContext.addFavorite(mealId);
@@ -42,7 +36,13 @@ export default MealsDetailScreen = ({ route, navigation }) => {
     navigation.setOptions({
       //set the title of the screen
       title: selectedMeal.title, //set the title to the meal title
-      headerRight: () => <IconButton icon={mealIsFavorite ? 'star' : 'star-outline'} color='#CCC' onPress={changeFavoriteStatusHandler}/>, //add a favorite button
+      headerRight: () => (
+        <IconButton
+          icon={mealIsFavorite ? "star" : "star-outline"}
+          color="#CCC"
+          onPress={changeFavoriteStatusHandler}
+        />
+      ), //add a favorite button
     });
   }, [mealId, navigation, changeFavoriteStatusHandler]); //run this effect when the meal id or navigation changes
 

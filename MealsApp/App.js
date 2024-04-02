@@ -8,7 +8,9 @@ import { useFonts } from "expo-font";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import FavoriteScreen from "./screens/FavoriteScreen";
 import { Ionicons } from "@expo/vector-icons";
-import FavoritesContextProvider from "./store/context/favorites-context";
+import { Provider } from "react-redux";
+import { store } from "./store/context/redux/store";
+// import FavoritesContextProvider from "./store/context/favorites-context";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -65,7 +67,8 @@ export default function App() {
   return (
     <>
       <StatusBar barStyle="light" />
-      <FavoritesContextProvider>
+      {/* <FavoritesContextProvider> */}
+      <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
@@ -89,7 +92,7 @@ export default function App() {
           <Stack.Screen name="MealsDetail" component={MealsDetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
-      </FavoritesContextProvider>
+      </Provider>
     </>
   );
 }

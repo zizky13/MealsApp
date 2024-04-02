@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 import {
   ScrollView,
   View,
@@ -12,6 +12,7 @@ import MealDetails from "../components/MealDetails";
 import Subtitle from "../components/Subtitle";
 import List from "../components/List";
 import IconButton from "../components/IconButton";
+import { FavoritesContext } from "../store/context/favorites-context";
 
 /**
  * Renders the detail screen for a specific meal.
@@ -21,12 +22,19 @@ import IconButton from "../components/IconButton";
  * @returns {JSX.Element} - The JSX element representing the detail screen.
  */
 export default MealsDetailScreen = ({ route, navigation }) => {
+  const favoriteMealsContext = useContext(FavoritesContext);
   const mealId = route.params.mealId; //get the meal id from the route
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId); //find the meal with the id
 
-  const headerButtonHandler = () => {
-    console.log("Button pressed");
+  const mealIsFavorite = favoriteMealsContext.ids.includes(mealId); //check if the meal is a favorite
+
+  const changeFavoriteStatusHandler = () => {
+    if (mealIsFavorite){
+      favoriteMealsContext.removeFavorite(mealId);
+    } else {
+      favoriteMealsContext.addFavorite(mealId);
+    }
   };
 
   useLayoutEffect(() => {
@@ -34,9 +42,9 @@ export default MealsDetailScreen = ({ route, navigation }) => {
     navigation.setOptions({
       //set the title of the screen
       title: selectedMeal.title, //set the title to the meal title
-      headerRight: () => <IconButton icon='star' color='#CCC' onPress={headerButtonHandler}/>, //add a favorite button
+      headerRight: () => <IconButton icon={mealIsFavorite ? 'star' : 'star-outline'} color='#CCC' onPress={changeFavoriteStatusHandler}/>, //add a favorite button
     });
-  }, [mealId, navigation, headerButtonHandler]); //run this effect when the meal id or navigation changes
+  }, [mealId, navigation, changeFavoriteStatusHandler]); //run this effect when the meal id or navigation changes
 
   return (
     <ScrollView>

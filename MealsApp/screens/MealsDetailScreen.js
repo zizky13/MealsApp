@@ -6,7 +6,10 @@ import MealDetails from "../components/MealDetails";
 import Subtitle from "../components/Subtitle";
 import List from "../components/List";
 import IconButton from "../components/IconButton";
-import { FavoritesContext } from "../store/context/favorites-context";
+import { useSelector, useDispatch } from "react-redux";
+import { addFavorite, removeFavorite } from "../store/context/redux/favorites";
+
+// import { FavoritesContext } from "../store/context/favorites-context";
 
 /**
  * Renders the detail screen for a specific meal.
@@ -16,18 +19,23 @@ import { FavoritesContext } from "../store/context/favorites-context";
  * @returns {JSX.Element} - The JSX element representing the detail screen.
  */
 export default MealsDetailScreen = ({ route, navigation }) => {
-  const favoriteMealsContext = useContext(FavoritesContext); //get the favorite meals context
+  // const favoriteMealsContext = useContext(FavoritesContext); //get the favorite meals context
+  const favoriteMealIds = useSelector((state) => state.favoriteMeals.ids);
+  const dispatch = useDispatch();
+
   const mealId = route.params.mealId; //get the meal id from the route
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId); //find the meal with the id
+  const mealIsFavorite = favoriteMealIds.includes(mealId) //check if current meal id is part of the favorites in the context array (this return boolean)
 
-  const mealIsFavorite = favoriteMealsContext.ids.includes(mealId); //check if current meal id is part of the favorites in the context array (this return boolean)
-
+  
   const changeFavoriteStatusHandler = () => {
     if (mealIsFavorite) {
-      favoriteMealsContext.removeFavorite(mealId);
+      // favoriteMealsContext.removeFavorite(mealId);
+      dispatch(removeFavorite({id :mealId}));
     } else {
-      favoriteMealsContext.addFavorite(mealId);
+      // favoriteMealsContext.addFavorite(mealId);
+      dispatch(addFavorite({id :mealId}));
     }
   };
 

@@ -5,6 +5,7 @@ import {
   Text,
   Image,
   StyleSheet,
+  Button,
 } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import Meal from "../models/meal";
@@ -24,32 +25,37 @@ export default MealsDetailScreen = ({ route, navigation }) => {
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId); //find the meal with the id
 
+  const headerButtonHandler = () => {
+    console.log("Button pressed");
+  };
+
   useLayoutEffect(() => {
     //set the title of the screen to the meal title
     navigation.setOptions({
       //set the title of the screen
       title: selectedMeal.title, //set the title to the meal title
+      headerRight: () => <Button title="Favorite" onPress={headerButtonHandler} />, //add a favorite button
     });
-  }, [mealId, navigation]); //run this effect when the meal id or navigation changes
+  }, [mealId, navigation, headerButtonHandler]); //run this effect when the meal id or navigation changes
 
   return (
-    <ScrollView> //wrap the content in a scroll view
-        <View style={styles.container}>
+    <ScrollView>
+      <View style={styles.container}>
         <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
         <Text style={styles.title}>{selectedMeal.title}</Text>
         <MealDetails //render the meal details component
-            complexity={selectedMeal.complexity}
-            affordability={selectedMeal.affordability}
-            duration={selectedMeal.duration}
-            featuredStyle={styles.featured}
+          complexity={selectedMeal.complexity}
+          affordability={selectedMeal.affordability}
+          duration={selectedMeal.duration}
+          featuredStyle={styles.featured}
         />
-        
-            <Subtitle>Ingredients</Subtitle>
-            <List data={selectedMeal.ingredients} />
 
-            <Subtitle>Steps</Subtitle>
-            <List data={selectedMeal.steps} />
-        </View>
+        <Subtitle>Ingredients</Subtitle>
+        <List data={selectedMeal.ingredients} />
+
+        <Subtitle>Steps</Subtitle>
+        <List data={selectedMeal.steps} />
+      </View>
     </ScrollView>
   );
 };

@@ -5,7 +5,6 @@ import {
   Text,
   Image,
   StyleSheet,
-  FlatList,
 } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import Meal from "../models/meal";

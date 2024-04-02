@@ -5,8 +5,30 @@ import CategoriesScreen from "./screens/CategoriesScreen";
 import MealsOverviewScreen from "./screens/MealsOverviewScreen";
 import MealsDetailScreen from "./screens/MealsDetailScreen";
 import { useFonts } from "expo-font";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import FavoriteScreen from "./screens/FavoriteScreen";
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+
+function DrawerNavigator() {
+  return (
+    <Drawer.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: "#351401",
+      },
+      headerTintColor: "#fff",
+      sceneContainerStyle: {
+        backgroundColor: "#222831",
+      },
+    }}>
+      <Drawer.Screen name="Categories" component={CategoriesScreen} options={{
+        title: "All Categories",
+      }}/>
+      <Drawer.Screen name="FavoriteScreen" component={FavoriteScreen}/>
+    </Drawer.Navigator>
+  );
+}
 
 export default function App() {
   const [loaded] = useFonts({
@@ -36,10 +58,10 @@ export default function App() {
           }}
         >
           <Stack.Screen
-            name="MealsCategories"
-            component={CategoriesScreen}
+            name="DrawerScreen"
+            component={DrawerNavigator}
             options={{
-              title: "Categories",
+              headerShown: false,
             }}
           />
           <Stack.Screen

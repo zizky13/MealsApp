@@ -5,13 +5,13 @@ import {
   Text,
   Image,
   StyleSheet,
-  Button,
 } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import Meal from "../models/meal";
 import MealDetails from "../components/MealDetails";
 import Subtitle from "../components/Subtitle";
 import List from "../components/List";
+import IconButton from "../components/IconButton";
 
 /**
  * Renders the detail screen for a specific meal.
@@ -34,7 +34,7 @@ export default MealsDetailScreen = ({ route, navigation }) => {
     navigation.setOptions({
       //set the title of the screen
       title: selectedMeal.title, //set the title to the meal title
-      headerRight: () => <Button title="Favorite" onPress={headerButtonHandler} />, //add a favorite button
+      headerRight: () => <IconButton icon='star' color='white' onPress={headerButtonHandler}/>, //add a favorite button
     });
   }, [mealId, navigation, headerButtonHandler]); //run this effect when the meal id or navigation changes
 

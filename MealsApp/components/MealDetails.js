@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet } from "react-native";
 
-export default MealDetails = ({ duration, complexity, affordability, featuredStyle }) => {
+export default MealDetails = ({ duration, complexity, affordability, featuredStyle, navigation }) => {
+
+
   return (
     <View style={styles.details}>
       <Text style={[styles.detailItem, featuredStyle]}>{duration}m</Text>

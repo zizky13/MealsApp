@@ -34,7 +34,7 @@ export default MealsDetailScreen = ({ route, navigation }) => {
     navigation.setOptions({
       //set the title of the screen
       title: selectedMeal.title, //set the title to the meal title
-      headerRight: () => <IconButton icon='star' color='white' onPress={headerButtonHandler}/>, //add a favorite button
+      headerRight: () => <IconButton icon='star' color='#CCC' onPress={headerButtonHandler}/>, //add a favorite button
     });
   }, [mealId, navigation, headerButtonHandler]); //run this effect when the meal id or navigation changes
 
